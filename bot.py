@@ -11,7 +11,7 @@ app_http = Flask(__name__)
 
 # Bot config from environment variables
 API_ID = int(os.getenv("API_ID"))
-API_HASH = os.getenv("API_HASH"))
+API_HASH = os.getenv("API_HASH")
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 GROUP_ID = int(os.getenv("GROUP_ID"))
 GROUP_LINK = os.getenv("GROUP_LINK")
