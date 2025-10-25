@@ -10,7 +10,7 @@ API_ID = int(os.getenv("API_ID"))
 API_HASH = os.getenv("API_HASH")
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 GROUP_ID = int(os.getenv("GROUP_ID"))
-GROUP_LINK = os.getenv("GROUP_LINK"))
+GROUP_LINK = os.getenv("GROUP_LINK")
 
 # Dummy port for Render
 import socket
