@@ -3,13 +3,24 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from weasyprint import HTML
 import io
+import threading
 
 # Bot config from environment variables
 API_ID = int(os.getenv("API_ID"))
 API_HASH = os.getenv("API_HASH")
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 GROUP_ID = int(os.getenv("GROUP_ID"))
-GROUP_LINK = os.getenv("GROUP_LINK")
+GROUP_LINK = os.getenv("GROUP_LINK"))
+
+# Dummy port for Render
+import socket
+def run_dummy_server():
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    sock.bind(('0.0.0.0', 10000))  # Render default port
+    sock.listen(5)
+    print("Dummy server running on port 10000")
+    sock.accept()  # Keep alive
 
 app = Client("PaymentScreenshotMaker", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
@@ -284,7 +295,9 @@ async def handle_details(client, message):
         )
         user_data.pop(user_id)
 
-# Run bot
+# Run bot and dummy server
 if __name__ == "__main__":
+    # Start dummy server in a separate thread
+    threading.Thread(target=run_dummy_server, daemon=True).start()
     print("Starting bot...")
     app.run()
