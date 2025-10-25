@@ -4,6 +4,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from weasyprint import HTML
 import io
 import threading
+import socket
 
 # Bot config from environment variables
 API_ID = int(os.getenv("API_ID"))
@@ -13,14 +14,14 @@ GROUP_ID = int(os.getenv("GROUP_ID"))
 GROUP_LINK = os.getenv("GROUP_LINK")
 
 # Dummy port for Render
-import socket
 def run_dummy_server():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind(('0.0.0.0', 10000))  # Render default port
-    sock.listen(5)
+    sock.listen(1)
     print("Dummy server running on port 10000")
-    sock.accept()  # Keep alive
+    while True:  # Keep server alive
+        sock.accept()  # Accept connections continuously
 
 app = Client("PaymentScreenshotMaker", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
